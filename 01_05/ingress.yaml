@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: example.com
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: blue-green.example.com
+      http:
+        paths:
+          - path: /blue
+            backend:
+              serviceName: blue
+              servicePort: 80
+          - path: /green
+            backend:
+              serviceName: green
+              servicePort: 80
+    - host: nginx.example.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: nginx
+              servicePort: 80
